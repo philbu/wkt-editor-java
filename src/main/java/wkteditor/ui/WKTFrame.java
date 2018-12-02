@@ -16,6 +16,10 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
+/**
+ * This frame displays the currently edited wkt file and provides UI elements
+ * to edit the wkt elements.
+ */
 public class WKTFrame extends JFrame implements ActionListener, WKTEditor.ElementChangeListener {
     private static final String AC_SAVE = "actionCommand:save";
     public static final String AC_CURSOR_SELECT = "actionCommand:cursorSelect";
@@ -62,6 +66,11 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         setVisible(true);
     }
 
+    /**
+     * Builds the complete menu.
+     *
+     * @return The created menu.
+     */
     private JMenuBar buildMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
@@ -129,6 +138,11 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         return menuBar;
     }
 
+    /**
+     * Builds the complete toolbar.
+     *
+     * @return The created toolbar.
+     */
     private JToolBar buildToolBar() {
         JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
         toolBar.setFloatable(false);
@@ -165,9 +179,19 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         return toolBar;
     }
 
-    private JButton buildToolbarButton(String iconName, String nameStr,
+    /**
+     * Builds a single button for the toolbar.
+     *
+     * @param iconName      The name of the button icon in the buttons resources
+     *                      folder.
+     * @param nameRes       The id of the name resource in the resource bundle.
+     * @param actionCommand The action command that is executed when the button
+     *                      is clicked.
+     * @return A new button with the above specified settings.
+     */
+    private JButton buildToolbarButton(String iconName, String nameRes,
                                        String actionCommand) {
-        String name = strings.getString(nameStr);
+        String name = strings.getString(nameRes);
         URL iconUrl = WKTFrame.class.getResource("/buttons/" + iconName + ".png");
 
         JButton button = new JButton();
@@ -231,6 +255,10 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         }
     }
 
+    /**
+     * Shows a file dialog to let the user select the destination file. If a
+     * file was selected, forwards the save operation to the {@link WKTEditor}.
+     */
     private void saveWkt() {
         final JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileFilter() {
@@ -260,6 +288,10 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         }
     }
 
+    /**
+     * Shows a file dialog to let the user select a background image. If an
+     * image was selected, updates the {@link WKTPane} accordingly.
+     */
     private void setBgImage() {
         final JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileFilter() {
@@ -293,6 +325,12 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         }
     }
 
+    /**
+     * Called when the cursor mode changed. Updates the related UI elements to
+     * represent the new cursor mode.
+     *
+     * @param mode The new cursor mode.
+     */
     private void onModeChanged(CursorMode mode) {
         cursorMenuGroup.setSelected(menuButtonMap.get(mode), true);
         cursorToolbarGroup.setSelected(toolbarButtonMap.get(mode), true);

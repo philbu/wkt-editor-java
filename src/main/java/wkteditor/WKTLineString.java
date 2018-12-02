@@ -3,8 +3,12 @@ package wkteditor;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * A wkt line.
+ */
 public class WKTLineString extends WKTElement {
     private LinkedList<WKTPoint> points;
 
@@ -17,18 +21,18 @@ public class WKTLineString extends WKTElement {
         super(x, y);
     }
 
+    @Override
     public void add(int x, int y) {
-        points.add(new WKTPoint(x, y));
+        add(new WKTPoint(x, y));
+    }
+
+    public void add(WKTPoint point) {
+        points.add(point);
     }
 
     @Override
     public boolean canAdd() {
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return toWKT();
     }
 
     @Override
@@ -55,5 +59,27 @@ public class WKTLineString extends WKTElement {
 
             prev = cur;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WKTLineString that = (WKTLineString) o;
+        return Objects.equals(points, that.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points);
+    }
+
+    @Override
+    public String toString() {
+        return toWKT();
     }
 }

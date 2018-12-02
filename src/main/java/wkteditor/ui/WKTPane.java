@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * This pane displays the wkt elements, that are being edited.
+ */
 public class WKTPane extends JComponent implements MouseListener {
     private WKTEditor editor;
     private Image bgImage;
@@ -19,6 +22,12 @@ public class WKTPane extends JComponent implements MouseListener {
         addMouseListener(this);
     }
 
+    /**
+     * Sets an image that is displayed in the background of the wkt elements.
+     *
+     * @param image The new image to display, or <code>null</code> to remove the
+     *              image.
+     */
     public void setBackgroundImage(Image image) {
         bgImage = image;
         repaint();
