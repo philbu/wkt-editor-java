@@ -1,5 +1,6 @@
 package wkteditor;
 
+import wkteditor.ui.DisplayOptions;
 import wkteditor.ui.WKTFrame;
 
 import java.io.File;

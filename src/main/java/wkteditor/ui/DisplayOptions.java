@@ -1,4 +1,4 @@
-package wkteditor;
+package wkteditor.ui;
 
 /**
  * The display options define how the wkt elements are drawn within the editor.
@@ -6,10 +6,12 @@ package wkteditor;
 public class DisplayOptions {
     private int pointRadius;
     private float lineWidth;
+    private Transform transform;
 
     public DisplayOptions() {
         pointRadius = 4;
         lineWidth = 2.0f;
+        transform = new Transform();
     }
 
     /**
@@ -55,5 +57,9 @@ public class DisplayOptions {
      */
     public float getLineWidth() {
         return lineWidth;
+    }
+
+    public Transform getTransform() {
+        return transform;
     }
 }

@@ -1,5 +1,8 @@
 package wkteditor;
 
+import wkteditor.ui.DisplayOptions;
+import wkteditor.ui.Transform;
+
 import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -75,6 +78,7 @@ public class WKTPolygon extends WKTElement {
         BasicStroke strokeDashed = new BasicStroke(opt.getLineWidth(),
                 BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f,
                 new float[]{opt.getLineWidth() * 2.0f}, 0.0f);
+        Transform transform = opt.getTransform();
 
         Iterator<LinkedList<WKTPoint>> subPolyIterator = subPolygons.iterator();
         while (subPolyIterator.hasNext()) {
@@ -87,7 +91,8 @@ public class WKTPolygon extends WKTElement {
             while (pointIterator.hasNext()) {
                 WKTPoint cur = pointIterator.next();
                 if (prev != null) {
-                    g.drawLine(prev.getX(), prev.getY(), cur.getX(), cur.getY());
+                    g.drawLine(transform.transformX(prev.getX()), transform.transformY(prev.getY()),
+                            transform.transformX(cur.getX()), transform.transformY(cur.getY()));
                 }
                 cur.paint(g, opt);
 
@@ -99,7 +104,8 @@ public class WKTPolygon extends WKTElement {
                 WKTPoint first = subPoly.getFirst();
                 WKTPoint last = subPoly.getLast();
 
-                g.drawLine(first.getX(), first.getY(), last.getX(), last.getY());
+                g.drawLine(transform.transformX(first.getX()), transform.transformY(first.getY()),
+                        transform.transformX(last.getX()), transform.transformY(last.getY()));
             }
         }
     }

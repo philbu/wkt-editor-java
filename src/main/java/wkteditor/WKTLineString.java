@@ -1,5 +1,8 @@
 package wkteditor;
 
+import wkteditor.ui.DisplayOptions;
+import wkteditor.ui.Transform;
+
 import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -46,6 +49,7 @@ public class WKTLineString extends WKTElement {
 
     @Override
     public void paint(Graphics2D g, DisplayOptions opt) {
+        Transform transform = opt.getTransform();
         Iterator<WKTPoint> iterator = points.iterator();
         WKTPoint prev = null;
 
@@ -53,7 +57,8 @@ public class WKTLineString extends WKTElement {
         while (iterator.hasNext()) {
             WKTPoint cur = iterator.next();
             if (prev != null) {
-                g.drawLine(prev.getX(), prev.getY(), cur.getX(), cur.getY());
+                g.drawLine(transform.transformX(prev.getX()), transform.transformY(prev.getY()),
+                        transform.transformX(cur.getX()), transform.transformY(cur.getY()));
             }
             cur.paint(g, opt);
 

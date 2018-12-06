@@ -13,8 +13,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * This frame displays the currently edited wkt file and provides UI elements
@@ -49,6 +49,7 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         endSubElementModels = new ArrayList<>(2);
 
         setLayout(new BorderLayout());
+        setTitle(strings.getString("name"));
 
         wktPane = new WKTPane(editor);
         add(wktPane, BorderLayout.CENTER);

@@ -1,5 +1,8 @@
 package wkteditor;
 
+import wkteditor.ui.DisplayOptions;
+import wkteditor.ui.Transform;
+
 import java.awt.*;
 import java.util.Objects;
 
@@ -67,12 +70,13 @@ public class WKTPoint extends WKTElement {
 
     @Override
     public String toWKT() {
-        return "POINT (" + String.valueOf(x) + " " + String.valueOf(y) + ")";
+        return "POINT (" + x + " " + y + ")";
     }
 
     @Override
     public void paint(Graphics2D g, DisplayOptions opt) {
-        g.fillOval(x - opt.getPointRadius(), y - opt.getPointRadius(),
+        Transform transform = opt.getTransform();
+        g.fillOval(transform.transformX(x) - opt.getPointRadius(), transform.transformY(y) - opt.getPointRadius(),
                 opt.getPointDiameter(), opt.getPointDiameter());
     }
 

@@ -1,5 +1,7 @@
 package wkteditor;
 
+import wkteditor.ui.DisplayOptions;
+
 import java.awt.*;
 
 /**
