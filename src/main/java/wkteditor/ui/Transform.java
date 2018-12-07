@@ -9,9 +9,30 @@ public class Transform {
     private double zoom;
 
     Transform() {
+        reset();
+    }
+
+    /**
+     * Resets all transformations.
+     */
+    public void reset() {
+        resetTranslation();
+        resetZoom();
+    }
+
+    /**
+     * Resets the zoom.
+     */
+    public void resetZoom() {
+        zoom = 1.0;
+    }
+
+    /**
+     * Resets the translation.
+     */
+    public void resetTranslation() {
         translateX = 0;
         translateY = 0;
-        zoom = 1.0f;
     }
 
     /**

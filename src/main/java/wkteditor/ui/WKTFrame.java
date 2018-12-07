@@ -30,6 +30,10 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
     private static final String AC_END_SUB_ELEMENT = "actionCommand:endSubElement";
     private static final String AC_SET_BG_IMAGE = "actionCommand:setBgImage";
     private static final String AC_REMOVE_BG_IMAGE = "actionCommand:removeBgImage";
+    private static final String AC_ZOOM_IN = "actionCommand:zoom.in";
+    private static final String AC_ZOOM_OUT = "actionCommand:zoom.out";
+    private static final String AC_ZOOM_RESET = "actionCommand:zoom.reset";
+    private static final String AC_VIEW_RESET = "actionCommand:view.reset";
 
     private ResourceBundle strings;
     private WKTEditor editor;
@@ -124,17 +128,48 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
         JMenu menuView = new JMenu(strings.getString("menu.view"));
         menuBar.add(menuView);
 
-        JMenuItem menuViewImage = new JMenuItem(
-                strings.getString("menu.view.bgImage"));
+        JMenuItem menuViewImage = new JMenuItem(strings.getString("menu.view.bgImage"));
         menuViewImage.setActionCommand(AC_SET_BG_IMAGE);
         menuViewImage.addActionListener(this);
         menuView.add(menuViewImage);
 
-        JMenuItem menuViewImageRemove = new JMenuItem(
-                strings.getString("menu.view.bgImage.remove"));
+        JMenuItem menuViewImageRemove = new JMenuItem(strings.getString("menu.view.bgImage.remove"));
         menuViewImageRemove.setActionCommand(AC_REMOVE_BG_IMAGE);
         menuViewImageRemove.addActionListener(this);
         menuView.add(menuViewImageRemove);
+
+        menuView.addSeparator();
+
+        JMenu menuZoom = new JMenu(strings.getString("menu.view.zoom"));
+        menuView.add(menuZoom);
+
+        JMenuItem menuZoomIn = new JMenuItem(strings.getString("menu.view.zoom.in"));
+        menuZoomIn.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK));
+        menuZoomIn.setActionCommand(AC_ZOOM_IN);
+        menuZoomIn.addActionListener(this);
+        menuZoom.add(menuZoomIn);
+
+        JMenuItem menuZoomOut = new JMenuItem(strings.getString("menu.view.zoom.out"));
+        menuZoomOut.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK));
+        menuZoomOut.setActionCommand(AC_ZOOM_OUT);
+        menuZoomOut.addActionListener(this);
+        menuZoom.add(menuZoomOut);
+
+        JMenuItem menuZoomReset = new JMenuItem(strings.getString("menu.view.zoom.reset"));
+        menuZoomReset.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK));
+        menuZoomReset.setActionCommand(AC_ZOOM_RESET);
+        menuZoomReset.addActionListener(this);
+        menuZoom.add(menuZoomReset);
+
+        JMenuItem menuViewReset = new JMenuItem(strings.getString("menu.view.reset"));
+        menuViewReset.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        menuViewReset.setActionCommand(AC_VIEW_RESET);
+        menuViewReset.addActionListener(this);
+        menuView.add(menuViewReset);
 
         return menuBar;
     }
@@ -252,6 +287,18 @@ public class WKTFrame extends JFrame implements ActionListener, WKTEditor.Elemen
                 break;
             case AC_END_SUB_ELEMENT:
                 editor.endCurrentSubElement();
+                break;
+            case AC_ZOOM_IN:
+                wktPane.zoom(1.0);
+                break;
+            case AC_ZOOM_OUT:
+                wktPane.zoom(-1.0);
+                break;
+            case AC_ZOOM_RESET:
+                wktPane.resetZoom();
+                break;
+            case AC_VIEW_RESET:
+                wktPane.resetView();
                 break;
         }
     }
